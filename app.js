@@ -8,13 +8,13 @@ const server = require("http").createServer(app);
 const quotesRouter = require('./routes/quotes');
 const PORT = process.env.PORT || 3030;
 // MongoDB connection URI
-const uri = 'mongodb+srv://dreamercloudofficial:dreamercloudofficial@rooms.drpj12s.mongodb.net/?retryWrites=true&w=majority&appName=Rooms';
+const uri = 'mongodb+srv://otuserdata:onR14R2vys8BOMWU@opentalk.6zbbcvn.mongodb.net/?retryWrites=true&w=majority&appName=OpenTalk';
 // Connect to MongoDB and store the connection in app.locals
 const client = new MongoClient(uri);
 client.connect()
     .then(() => {
         console.log('Connected to MongoDB');
-        app.locals.db = client.db('test');
+        app.locals.db = client.db('Users');
 
         app.use(express.json());
         app.use(express.urlencoded({ extended: false }));
