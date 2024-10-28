@@ -30,7 +30,6 @@ router.post('/getbygmail', async (req, res) => {
     }
     const collection = db.collection('UserData');
     const email = req.body.email; // Use query parameter
-    console.log('email ', email);
     if (!email) {
       return res.status(400).json({ error: 'Email parameter is required' });
     }
