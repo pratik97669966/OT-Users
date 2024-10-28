@@ -20,6 +20,25 @@ router.get('/:uId', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+// GET a user by email
+router.get('/getbygmail', async (req, res) => {
+  try {
+    const db = req.app.locals.db;
+    if (!db) {
+      console.error('MongoDB connection not established');
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+    const collection = db.collection('UserData');
+    const user = await collection.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    res.json(user);
+  } catch (error) {
+    console.error('Error finding user by email:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 // POST (upsert) a user by uId
 router.post('/:uId', async (req, res) => {
