@@ -28,9 +28,9 @@ router.post('/getbygmail', async (req, res) => {
       console.error('MongoDB connection not established');
       return res.status(500).json({ error: 'Internal server error' });
     }
-    
+
     const collection = db.collection('UserData');
-    const email = req.request.email; // Use query parameter
+    const email = req.body.email; // Use query parameter
     if (!email) {
       return res.status(400).json({ error: 'Email parameter is required' });
     }
