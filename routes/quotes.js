@@ -21,7 +21,7 @@ router.get('/:uId', async (req, res) => {
   }
 });
 // GET a user by email
-router.get('/getbygmail', async (req, res) => {
+router.post('/getbygmail', async (req, res) => {
   try {
     const db = req.app.locals.db;
     if (!db) {
@@ -29,7 +29,12 @@ router.get('/getbygmail', async (req, res) => {
       return res.status(500).json({ error: 'Internal server error' });
     }
     const collection = db.collection('UserData');
-    const user = await collection.findOne({ email: req.body.email });
+    const email = req.body.email; // Use query parameter
+    console.log('email ', email);
+    if (!email) {
+      return res.status(400).json({ error: 'Email parameter is required' });
+    }
+    const user = await collection.findOne({ email });
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
